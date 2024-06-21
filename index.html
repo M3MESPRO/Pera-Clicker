@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pera Clicker</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        #contador {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        img {
+            cursor: pointer;
+            transition: filter 0.3s;
+        }
+        .pera-original, .pera-moeda {
+            width: 100px;
+            height: auto;
+        }
+        .blue-filter {
+            filter: hue-rotate(180deg) saturate(200%);
+        }
+        .green-filter {
+            filter: hue-rotate(90deg) saturate(200%);
+        }
+        .yellow-filter {
+            filter: hue-rotate(60deg) saturate(200%);
+        }
+        #resetar {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        #loja {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 200px;
+            height: 300px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            display: none;
+        }
+        #moedas-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            top: 50px;
+            left: 10px;
+        }
+        #moedas {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script type="text/javascript">
+        let contador = 0;
+        let moedas = 0;
+        let incremento = 1;
+
+        function carregarContador() {
+            const contadorSalvo = localStorage.getItem("contador");
+            const moedasSalvas = localStorage.getItem("moedas");
+            if (contadorSalvo !== null) {
+                contador = parseInt(contadorSalvo, 10);
+                document.getElementById("contador").innerText = contador;
+                if (contador >= 300) {
+                    incremento = 2;
+                }
+                if (contador >= 500) {
+                    document.getElementById("loja").style.display = 'block';
+                    document.getElementById("pera-moeda").style.display = 'block';
+                }
+                atualizarCor();
+            }
+            if (moedasSalvas !== null) {
+                moedas = parseInt(moedasSalvas, 10);
+                document.getElementById("moedas").innerText = moedas;
+            }
+        }
+
+        function salvarContador() {
+            localStorage.setItem("contador", contador);
+            localStorage.setItem("moedas", moedas);
+        }
+
+        function aumentarContador() {
+            contador += incremento;
+            document.getElementById("contador").innerText = contador;
+            if (contador >= 300 && incremento !== 2) {
+                incremento = 2;
+            }
+            if (contador >= 500) {
+                document.getElementById("loja").style.display = 'block';
+                document.getElementById("pera-moeda").style.display = 'block';
+                aumentarMoedas();
+            }
+            atualizarCor();
+            salvarContador();
+        }
+
+        function aumentarMoedas() {
+            moedas += 2;
+            document.getElementById("moedas").innerText = moedas;
+            salvarContador();
+        }
+
+        function atualizarCor() {
+            const pera = document.getElementById("pera");
+            if (contador >= 300) {
+                pera.classList.remove("blue-filter", "green-filter");
+                pera.classList.add("yellow-filter");
+            } else if (contador >= 200) {
+                pera.classList.remove("blue-filter", "yellow-filter");
+                pera.classList.add("green-filter");
+            } else if (contador >= 100) {
+                pera.classList.remove("green-filter", "yellow-filter");
+                pera.classList.add("blue-filter");
+            } else {
+                pera.classList.remove("blue-filter", "green-filter", "yellow-filter");
+            }
+        }
+
+        function resetarContador() {
+            contador = 0;
+            moedas = 0;
+            incremento = 1;
+            document.getElementById("contador").innerText = contador;
+            document.getElementById("moedas").innerText = moedas;
+            document.getElementById("loja").style.display = 'none';
+            document.getElementById("pera-moeda").style.display = 'none';
+            atualizarCor();
+            salvarContador();
+        }
+
+        window.onload = carregarContador;
+    </script>
+</head>
+<body>
+    <button id="resetar" onclick="resetarContador()">Resetar</button>
+    <h1>Pera Clicker</h1>
+    <p id="contador">0</p>
+    <img id="pera" class="pera-original" src="https://st.depositphotos.com/1902163/1634/i/950/depositphotos_16347875-stock-photo-pearpear-pear-fruit-pear-isolated.jpg" alt="Pera" onclick="aumentarContador()">
+    <div id="moedas-container">
+        <p id="moedas">0</p>
+        <img id="pera-moeda" class="pera-moeda" src="file:///C:/Users/Usuario/Downloads/diego/depositphotos_16347875-stock-photo-pearpear-pear-fruit-pear-isolated.jpg" alt="Moedas">
+    </div>
+    <div id="loja">
+        <h2>Mini Loja</h2>
+        <p>Itens disponíveis para compra:</p>
+        <ul>
+            <li>Item 1 - 100 pontos</li>
+            <li>Item 2 - 200 pontos</li>
+            <li>Item 3 - 300 pontos</li>
+        </ul>
+    </div>
+</body>
+</html>
