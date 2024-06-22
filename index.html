@@ -117,9 +117,11 @@
         }
 
         function aumentarMoedas() {
-            moedas += 2;
-            document.getElementById("moedas").innerText = moedas;
-            salvarContador();
+            if (contador >= 500) {
+                moedas += 2;
+                document.getElementById("moedas").innerText = moedas;
+                salvarContador();
+            }
         }
 
         function atualizarCor() {
@@ -160,10 +162,10 @@
     <img id="pera" class="pera-original" src="https://st.depositphotos.com/1902163/1634/i/950/depositphotos_16347875-stock-photo-pearpear-pear-fruit-pear-isolated.jpg" alt="Pera" onclick="aumentarContador()">
     <div id="moedas-container">
         <p id="moedas">0</p>
-        <img id="pera-moeda" class="maçã-moeda" src="https://i0.wp.com/www.mamaeplugada.com.br/wp-content/uploads/2016/05/papinha-de-ma%C3%A7a.png?w=418&ssl=1" alt="Moedas">
+        <img id="pera-moeda" class="pera-moeda" src="https://i0.wp.com/www.mamaeplugada.com.br/wp-content/uploads/2016/05/papinha-de-ma%C3%A7a.png?w=418&ssl=1" alt="Moedas" style="display: none;">
     </div>
     <div id="loja">
-        <h2>Loja</h2>
+        <h2>Mini Loja</h2>
         <p>Itens disponíveis para compra:</p>
         <ul>
             <li>Item 1 - 100 pontos</li>
