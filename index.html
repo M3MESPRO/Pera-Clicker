@@ -109,7 +109,9 @@
                 document.getElementById("loja").style.display = 'block';
                 document.getElementById("pera-moeda").style.display = 'block';
             }
-            aumentarMoedas();
+            if (contador >= 500) {
+                aumentarMoedas();
+            }
             atualizarCor();
             salvarContador();
         }
@@ -182,7 +184,7 @@
     <img id="pera" class="pera-original" src="https://st.depositphotos.com/1902163/1634/i/950/depositphotos_16347875-stock-photo-pearpear-pear-fruit-pear-isolated.jpg" alt="Pera" onclick="aumentarContador()">
     <div id="moedas-container">
         <p id="moedas">0</p>
-        <img id="pera-moeda" class="https://i0.wp.com/www.mamaeplugada.com.br/wp-content/uploads/2016/05/papinha-de-ma%C3%A7a.png?w=418&ssl=1" alt="Moedas" style="display: none;">
+        <img id="pera-moeda" class="pera-moeda" src="https://i0.wp.com/www.mamaeplugada.com.br/wp-content/uploads/2016/05/papinha-de-ma%C3%A7a.png?w=418&ssl=1" alt="Moedas" style="display: none;">
     </div>
     <div id="loja">
         <h2>Mini Loja</h2>
