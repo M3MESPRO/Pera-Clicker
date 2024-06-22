@@ -16,7 +16,7 @@
         h1 {
             margin-bottom: 20px;
         }
-        #contador {
+        #contador, #moedas {
             font-size: 2em;
             margin-bottom: 20px;
         }
@@ -65,15 +65,12 @@
             top: 50px;
             left: 10px;
         }
-        #moedas {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
     </style>
     <script type="text/javascript">
         let contador = 0;
         let moedas = 0;
         let incremento = 1;
+        let autoClickerActive = false;
 
         function carregarContador() {
             const contadorSalvo = localStorage.getItem("contador");
@@ -110,7 +107,6 @@
             if (contador >= 500) {
                 document.getElementById("loja").style.display = 'block';
                 document.getElementById("pera-moeda").style.display = 'block';
-                aumentarMoedas();
             }
             atualizarCor();
             salvarContador();
@@ -144,12 +140,32 @@
             contador = 0;
             moedas = 0;
             incremento = 1;
+            autoClickerActive = false;
             document.getElementById("contador").innerText = contador;
             document.getElementById("moedas").innerText = moedas;
             document.getElementById("loja").style.display = 'none';
             document.getElementById("pera-moeda").style.display = 'none';
             atualizarCor();
             salvarContador();
+        }
+
+        function comprarAutoClicker() {
+            if (moedas >= 200) {
+                moedas -= 200;
+                document.getElementById("moedas").innerText = moedas;
+                autoClickerActive = true;
+                salvarContador();
+                iniciarAutoClicker();
+            }
+        }
+
+        function iniciarAutoClicker() {
+            if (autoClickerActive) {
+                setInterval(() => {
+                    aumentarContador();
+                    aumentarMoedas();
+                }, 1000);
+            }
         }
 
         window.onload = carregarContador;
@@ -171,6 +187,7 @@
             <li>Item 1 - 100 pontos</li>
             <li>Item 2 - 200 pontos</li>
             <li>Item 3 - 300 pontos</li>
+            <li><button onclick="comprarAutoClicker()">Clique Automático - 200 Moedas</button></li>
         </ul>
     </div>
 </body>
