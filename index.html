@@ -70,7 +70,7 @@
         let contador = 0;
         let moedas = 0;
         let incremento = 1;
-        let autoClickerActive = false;
+        let autoClickerInterval;
 
         function carregarContador() {
             const contadorSalvo = localStorage.getItem("contador");
@@ -140,7 +140,8 @@
             contador = 0;
             moedas = 0;
             incremento = 1;
-            autoClickerActive = false;
+            clearInterval(autoClickerInterval);
+            autoClickerInterval = null;
             document.getElementById("contador").innerText = contador;
             document.getElementById("moedas").innerText = moedas;
             document.getElementById("loja").style.display = 'none';
@@ -153,15 +154,14 @@
             if (moedas >= 200) {
                 moedas -= 200;
                 document.getElementById("moedas").innerText = moedas;
-                autoClickerActive = true;
-                salvarContador();
                 iniciarAutoClicker();
+                salvarContador();
             }
         }
 
         function iniciarAutoClicker() {
-            if (autoClickerActive) {
-                setInterval(() => {
+            if (!autoClickerInterval) {
+                autoClickerInterval = setInterval(() => {
                     aumentarContador();
                     aumentarMoedas();
                 }, 1000);
