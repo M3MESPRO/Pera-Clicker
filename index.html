@@ -70,6 +70,7 @@
         let contador = 0;
         let moedas = 0;
         let incremento = 1;
+        let autoClickerRate = 0;
         let autoClickerInterval;
 
         function carregarContador() {
@@ -139,6 +140,7 @@
             contador = 0;
             moedas = 0;
             incremento = 1;
+            autoClickerRate = 0;
             clearInterval(autoClickerInterval);
             autoClickerInterval = null;
             document.getElementById("contador").innerText = contador;
@@ -153,17 +155,21 @@
             if (moedas >= 200) {
                 moedas -= 200;
                 document.getElementById("moedas").innerText = moedas;
+                autoClickerRate += 2;
                 iniciarAutoClicker();
                 salvarContador();
             }
         }
 
         function iniciarAutoClicker() {
-            if (!autoClickerInterval) {
-                autoClickerInterval = setInterval(() => {
-                    aumentarContador();
-                }, 1000);
+            if (autoClickerInterval) {
+                clearInterval(autoClickerInterval);
             }
+            autoClickerInterval = setInterval(() => {
+                for (let i = 0; i < autoClickerRate; i++) {
+                    aumentarContador();
+                }
+            }, 1000);
         }
 
         window.onload = carregarContador;
@@ -176,7 +182,7 @@
     <img id="pera" class="pera-original" src="https://st.depositphotos.com/1902163/1634/i/950/depositphotos_16347875-stock-photo-pearpear-pear-fruit-pear-isolated.jpg" alt="Pera" onclick="aumentarContador()">
     <div id="moedas-container">
         <p id="moedas">0</p>
-        <img id="pera-moeda" class="pera-moeda" src="https://i0.wp.com/www.mamaeplugada.com.br/wp-content/uploads/2016/05/papinha-de-ma%C3%A7a.png?w=418&ssl=1" alt="Moedas" style="display: none;">
+        <img id="pera-moeda" class="https://i0.wp.com/www.mamaeplugada.com.br/wp-content/uploads/2016/05/papinha-de-ma%C3%A7a.png?w=418&ssl=1" alt="Moedas" style="display: none;">
     </div>
     <div id="loja">
         <h2>Mini Loja</h2>
@@ -190,4 +196,5 @@
     </div>
 </body>
 </html>
+
 
