@@ -108,16 +108,15 @@
                 document.getElementById("loja").style.display = 'block';
                 document.getElementById("pera-moeda").style.display = 'block';
             }
+            aumentarMoedas();
             atualizarCor();
             salvarContador();
         }
 
         function aumentarMoedas() {
-            if (contador >= 500) {
-                moedas += 2;
-                document.getElementById("moedas").innerText = moedas;
-                salvarContador();
-            }
+            moedas += 2;
+            document.getElementById("moedas").innerText = moedas;
+            salvarContador();
         }
 
         function atualizarCor() {
@@ -163,7 +162,6 @@
             if (!autoClickerInterval) {
                 autoClickerInterval = setInterval(() => {
                     aumentarContador();
-                    aumentarMoedas();
                 }, 1000);
             }
         }
@@ -192,3 +190,4 @@
     </div>
 </body>
 </html>
+
